@@ -35,6 +35,7 @@ app.post("/api/analyze", upload.single("image"), async (req, res) => {
     }
 
     const userIntent = req.body.intent || "unsure";
+    const target = req.body.target || "";
     console.log(`User intent: ${userIntent}`);
 
     const intentInstruction = req.body.intent_instruction || "HELP ME UNDERSTAND THE SITUATION. Ask for clarification if necessary.";
@@ -68,21 +69,35 @@ app.post("/api/analyze", upload.single("image"), async (req, res) => {
         intentPrompt = `
             MODE: FIND
 
-            The user wants to locate something.
+            The user wants to locate something in the image.
 
-            CRITICAL: The user has NOT specified what they want to find.
+            TARGET:
+            "${target}"
 
-            You MUST NOT pretend that a target was provided.
+            Your task is to identify whether the requested target is visible.
 
-            REQUIRED OUTPUT BEHAVIOR:
-            needs_clarification: true
-            clarification_question: "What are you trying to find?"
-            next_step: "Tell me what you are trying to find."
-            steps: []
+            If the target is visible:
+            - Describe where it is.
+            - Use relative positions and visible landmarks.
+            - Give a clear next step for reaching or identifying it.
+
+            Example:
+            "The fire extinguisher is mounted on the wall to the left of the doorway."
+
+            If the target is NOT visible:
+            - Clearly say that it cannot be located in the current image.
+            - Do not invent its location.
+
+            Do not confuse similar-looking objects with the requested target.
+
+            needs_clarification should normally be false because the user has
+            already specified the target.
+
+            steps should contain only useful location-related steps supported
+            by the image.
+
             items_needed: []
             warnings: []
-
-            Do not provide generic image guidance.
         `;
     }
 
@@ -142,29 +157,48 @@ app.post("/api/analyze", upload.single("image"), async (req, res) => {
         intentPrompt = `
             MODE: NAVIGATE
 
-            The user wants help getting somewhere.
+            The user wants to reach a specific destination.
 
-            Look for visible navigation information such as:
+            DESTINATION:
+            "${target}"
+
+            Inspect the image for navigation information such as:
+
             - arrows
-            - exits
-            - entrances
-            - room numbers
             - signs
-            - platforms
+            - room numbers
+            - doors
+            - entrances
+            - exits
+            - corridors
+            - stairs
+            - elevators
             - counters
+            - landmarks
 
-            CRITICAL: The user has NOT specified a destination.
+            Determine the best next direction toward the requested destination
+            using ONLY information visible in the image.
 
-            If the destination is unknown:
+            If the destination or a useful route cannot be determined from the
+            image, say so clearly.
 
-            needs_clarification: true
-            clarification_question: "Where are you trying to go?"
-            next_step: "Tell me your destination so I can guide you."
-            steps: []
+            Do NOT invent a route.
+
+            Use relative directions such as:
+            - left
+            - right
+            - straight ahead
+            - behind
+            - beside
+            - near the entrance
+
+            Only use directions that are supported by visible landmarks.
+
+            needs_clarification should normally be false because the destination
+            has already been provided.
+
             items_needed: []
             warnings: []
-
-            Do not invent a destination.
         `;
     }
 
@@ -272,6 +306,9 @@ app.post("/api/analyze", upload.single("image"), async (req, res) => {
 
                     INTENT:
                     ${userIntent}
+
+                    USER TARGET / DESTINATION:
+                    ${target || "None specified"}
 
                     INTENT-SPECIFIC INSTRUCTION:
                     ${intentInstruction}

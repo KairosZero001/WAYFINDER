@@ -9,6 +9,7 @@ function App() {
   const [imageFile, setImageFile] = useState(null);
   const [result, setResult] = useState(null);
   const [intent, setIntent] = useState("");
+  const [target, setTarget] = useState("");
   const [error, setError] = useState("");
 
   const handleFile = (event) => {
@@ -36,6 +37,7 @@ function App() {
     setError("");
     setIntent("");
     setPage("home");
+    setTarget("");
 
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
@@ -67,6 +69,8 @@ function App() {
         selectedIntent?.aiInstruction ||
           "HELP ME UNDERSTAND THE SITUATION. Ask for clarification if neccesary."
       );
+
+      formData.append("target", target);
 
       const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3001";
 
@@ -334,6 +338,37 @@ function App() {
             </div>
 
           </div>
+          
+          {intent === "find" && (
+            <div className="target-input">
+
+              <label>What are you trying to find?</label>
+
+              <input
+                type="text"
+                value={target}
+                onChange={(e) => setTarget(e.target.value)}
+                placeholder="e.g. fire extinguisher, door, elevator..."
+                color={target.trim() ? "black" : "gray"}
+              />
+
+            </div>
+          )}
+
+          {intent === "navigate" && (
+            <div className="target-input">
+
+              <label>Where are you trying to go?</label>
+
+              <input
+                type="text"
+                value={target}
+                onChange={(e) => setTarget(e.target.value)}
+                placeholder="e.g. Room 307, exit, reception..."
+              />
+
+            </div>
+          )}
 
           <div className="preview-actions">
 
@@ -347,7 +382,10 @@ function App() {
             <button
               className="analyze-button"
               onClick={analyzeImage}
-              disabled={!intent}
+              disabled={
+                !intent || 
+                ((intent === "find" || intent === "navigate") && !target.trim())
+              }
             >
               Analyze Scene →
             </button>

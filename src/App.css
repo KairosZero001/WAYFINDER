@@ -425,6 +425,33 @@ body {
   margin-bottom: 20px;
 }
 
+.target-input {
+  margin: 28px auto 0;
+  max-width: 600px;
+}
+
+.target-input label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.target-input input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 16px 18px;
+  border: 1px solid #ddd;
+  border-radius: 14px;
+  background: #fff;
+  font-size: 16px;
+  outline: none;
+  color:#000
+}
+
+.target-input input:focus {
+  border-color: #222;
+}
+
 /* ACTION LIST */
 
 .action-list {
