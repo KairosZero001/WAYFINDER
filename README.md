@@ -9,7 +9,9 @@ WAYFINDER is an AI-powered visual navigation and location understanding tool tha
 Instead of relying on someone to already know where they are, WAYFINDER uses vision AI to analyze an image and provide useful contextual information about the location, objects, signs, landmarks, and surroundings.
 
 
+
 🚨 The Problem:
+
 When people enter an unfamiliar place, they often don't know:
 -Where they are
 -What a particular building or landmark is
@@ -18,11 +20,17 @@ When people enter an unfamiliar place, they often don't know:
 -Traditional maps can tell you where you are, but they don't always explain what you're looking at.
 
 
+
 💡 Our Solution:
+
 WAYFINDER turns your camera into an intelligent visual guide.
+
 Simply:
+
 📸 Take/upload a photo → 🤖 AI analyzes it → 🧭 Get contextual information
 The system uses computer vision to understand the image and generate a human-readable explanation.
+
+
 
 ✨ Features:
 
@@ -45,34 +53,56 @@ No complicated controls. Upload an image, press Find, and get the result.
 WAYFINDER runs directly in a browser, making it accessible without requiring a dedicated application.
 
 
+
 WAYFINDER can be useful for:
+
 🧳 Tourists exploring unfamiliar locations
+
 🎓 Students exploring campuses or new environments
+
 🚶 Travelers trying to understand their surroundings
+
 🏙️ People exploring unfamiliar cities
+
 🧭 Visitors in large public spaces
+
 🔍 Anyone who sees something unfamiliar and simply wants to know "What is this?"
 
 
+
 🛠️ Technology Used:
+
 Frontend:
-  •React
-  •Vite
-  •JavaScript
-  •CSS
-    
-Backend:
-  •Python
-  •REST API
-  •Render
-  •AI
+
+   •React
   
+   •Vite
+  
+   •JavaScript
+  
+   •CSS
+
+		
+Backend:
+
+   •Python
+  
+   •REST API
+  
+   •Render
+  
+   •AI
+
+	
 Vision-Language Model:
+
   •Qwen2.5-VL ( For Developing )
+  
   •Gemini 3.6 
 
   
 🔄 How It Works:
+
        📸 USER IMAGE
              │
              ▼
@@ -103,21 +133,34 @@ Vision-Language Model:
 🚀 Why WAYFINDER?
 
 Maps answer:
+
 "Where am I?"
+
 WAYFINDER aims to answer:
+
 "What am I looking at, and what does it mean?"
+
 It bridges the gap between visual information and human understanding.
 
 
 🔮 Future Possibilities
+
 WAYFINDER could eventually support:
+
 📍 GPS-based location identification
+
 🗣️ Voice-based interaction
+
 📱 Real-time camera analysis
+
 🧭 Step-by-step visual navigation
+
 🌍 Landmark and historical information
+
 ♿ Accessibility assistance
+
 🌐 Multi-language explanations
+
 🏢 Indoor navigation
 
 
