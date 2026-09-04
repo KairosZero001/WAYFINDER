@@ -1,9 +1,9 @@
-const express = require("express");
-const cors = require("cors");
-const multer = require("multer");
-require("dotenv").config();
-
-const { GoogleGenAI } = require("@google/genai");
+import process from "node:process";
+import express from "express";
+import cors from "cors";
+import multer from "multer";
+import "dotenv/config";
+import { GoogleGenAI } from "@google/genai";
 
 const app = express();
 

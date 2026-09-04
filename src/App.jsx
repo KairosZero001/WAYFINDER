@@ -370,6 +370,12 @@ function App() {
             </div>
           )}
 
+          {error && (
+            <div className="error-banner" role="alert">
+              {error}
+            </div>
+          )}
+
           <div className="preview-actions">
 
             <button
